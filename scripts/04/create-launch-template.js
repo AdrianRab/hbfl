@@ -20,8 +20,23 @@ async function execute () {
   }
 }
 
-async function createLaunchTemplate (ltName, profileArn) {
-  // TODO: Create a launch template
+async function createLaunchTemplate(ltName, profileArn) {
+  const params = {
+    LaunchTemplateName: ltName,
+    LaunchTemplateData: {
+      IamInstanceProfile: {
+        Arn: profileArn
+      },
+      ImageId: 'ami-0ac4f21b0f7f71534',
+      InstanceType: 't2.micro',
+      KeyName: keyName,
+      SecurityGroups: [sgName],
+      UserData: 'IyEvYmluL2Jhc2gKc3VkbyBhcHQtZ2V0IHVwZGF0ZQpzdWRvIGFwdC1nZXQgLXkgaW5zdGFsbCBnaXQKcm0gLXJmIC9ob21lL2JpdG5hbWkvaGJmbApnaXQgY2xvbmUgaHR0cHM6Ly9naXRodWIuY29tL3J5YW5tdXJha2FtaS9oYmZsLmdpdCAvaG9tZS9iaXRuYW1pL2hiZmwKY2hvd24gLVIgYml0bmFtaTogL2hvbWUvYml0bmFtaS9oYmZsCmNkIC9ob21lL2JpdG5hbWkvaGJmbApzdWRvIG5wbSBjaQpzdWRvIG5wbSBydW4gc3RhcnQ='
+    }
+  }
+
+  const command = new CreateLaunchTemplateCommand(params)
+  return helpers.sendCommand(command)
 }
 
 execute()
