@@ -4,7 +4,7 @@ const {
 } = require('@aws-sdk/client-dynamodb')
 const { sendDynamoDBCommand } = require('./helpers')
 
-async function execute () {
+async function execute() {
   try {
     await createTable('hamsters')
     const data = await createTable('races')
@@ -14,8 +14,29 @@ async function execute () {
   }
 }
 
-async function createTable (tableName) {
-  // TODO: Create dynamodb table
+async function createTable(tableName) {
+  const params = {
+    TableName: tableName,
+    AttributeDefinitions: [
+      {
+        AttributeName: 'id',
+        AttributeType: 'N' // S for String . N for number and B for binary
+      }
+    ],
+    KeySchema: [
+      {
+        AttributeName: 'id',
+        KeyType: 'HASH'
+      }
+    ],
+    ProvisionedThroughput: {
+      ReadCapacityUnits: 5,
+      WriteCapacityUnits: 5
+    }
+  }
+
+  const command = CreateTableCommand(params)
+  return helpers.sendDynamoDBCommand(command)
 }
 
 execute()
