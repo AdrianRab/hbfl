@@ -17,7 +17,12 @@ async function execute () {
 }
 
 async function createBucket (bucketName) {
-  // TODO: Create s3 bucket
+  const params = {
+    Bucket: bucketName,
+    ACL: 'public-read'
+  }
+  const command = CreateBucketCommand(params)
+  return sendS3Command(command)
 }
 
 execute()

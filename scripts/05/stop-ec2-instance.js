@@ -8,7 +8,7 @@ const { sendCommand } = require('./helpers')
 // Declare local variables
 const sgName = 'hamster_sg'
 const keyName = 'hamster_key'
-const instanceId = '/* TODO: Add the instance Id to stop */'
+const instanceId = ''
 
 async function execute () {
   try {

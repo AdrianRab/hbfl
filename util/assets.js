@@ -1,3 +1,4 @@
+// replace /public with url to s3bucket to use it from AWS
 const base = '/public'
 module.exports = {
   hamster1: base + '/images/hamster-1-final.png',

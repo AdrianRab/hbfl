@@ -22,11 +22,23 @@ async function execute () {
 }
 
 async function detachVolume (volumeId) {
-  // TODO: Detach the volume
+  const params = {
+    VolumeId: volumeId
+  }
+  const command = new DetachVolumeCommand(params)
+  return sendCommand(command)
 }
 
 async function attachVolume (instanceId, volumeId) {
-  // TODO: Attach the volume
+  const params = {
+    InstanceId: instanceId,
+    VolumeId: volumeId,
+    Device: '/dev/sdf' // --> this is kind of a linux like mounting
+  }
+
+  const command = new AttachVolumeCommand(params)
+  return sendCommand(command)
+
 }
 
 execute()
