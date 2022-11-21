@@ -2,7 +2,7 @@
 const { PutBucketWebsiteCommand } = require('@aws-sdk/client-s3')
 const { sendS3Command: sendCommand } = require('./helpers')
 
-const bucketName = '/* TODO: Add your S3 bucket name */'
+const bucketName = 'hamster-bucket-adrian-2021' /* some unique name*/
 
 async function execute () {
   try {
@@ -14,7 +14,18 @@ async function execute () {
 }
 
 async function configureS3Site (bucketName) {
-  // Use PutBucketWebsiteCommand to create static site
+  const params = {
+    Bucker: bucketName,
+    WebsiteConfiguration: {
+      //we can add here also ErrorDocument
+      IndexDocument: {
+        Suffix: 'index.html' //index.html is a default, this is just to show how it works if we want sth different
+      }
+    }
+  }
+
+  const command = new PutBucketWebsiteCommand(params)
+  return sendCommand(command)
 }
 
 execute()
