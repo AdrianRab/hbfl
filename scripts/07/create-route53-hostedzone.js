@@ -5,7 +5,7 @@ const {
 const { sendRoute53Command: sendCommand } = require('./helpers')
 
 // Declare local variables
-const hzName = 'hbfl.online'
+const hzName = 'hbfl.online' // I can provide my own domain, but first is has to purchased.
 
 async function execute () {
   try {
@@ -17,7 +17,13 @@ async function execute () {
 }
 
 function createHostedZone (hzName) {
-  // TODO: Create hostedzone with route53
+  const params = {
+    Name: hzName,
+    CallerReference: `${Date.now()}` //timestamp a a string to avoid duplicated HZs being created
+  }
+  const command = new CreateHostedZoneCommand(params)
+  return sendCommand(command)
+
 }
 
 execute()
